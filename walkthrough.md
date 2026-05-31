@@ -146,11 +146,39 @@ To ensure the system works with realistic production-scale volumes of records im
 
 ---
 
-## 🔍 Local Database Verification Queries
+## 🔍 Database Verification and Querying
 
-The following queries can be executed directly inside your local database environment (MongoDB Shell `mongosh`, MongoDB Compass, or mapped database utilities) to query and verify system operations:
+To check and verify records stored in the database, you can use either the built-in command-line utility or the standard MongoDB Shell (`mongosh`).
 
-### 1. Donor Management Queries
+### Method A: Built-in Command-Line Utility (Recommended)
+You can run database queries directly in your standard project terminal (PowerShell or Bash) without entering the `mongosh` environment:
+* **View Database Summary**:
+  ```bash
+  node query.js
+  ```
+* **List Approved, Available Donors**:
+  ```bash
+  node query.js donors
+  ```
+* **List Active Blood Requests**:
+  ```bash
+  node query.js requests
+  ```
+
+### Method B: MongoDB Shell (`mongosh`)
+If you want to use the native MongoDB Shell, follow these steps step-by-step in your terminal:
+
+1. Start the shell:
+   ```bash
+   mongosh
+   ```
+2. Switch to the Lifeline database:
+   ```javascript
+   use blood_donor_db
+   ```
+3. Run any of the following queries:
+
+#### 1. Donor Management Queries
 * **Find all approved, active donors**:
   ```javascript
   db.donors.find({ status: "Approved", isAvailable: true })
@@ -176,7 +204,7 @@ The following queries can be executed directly inside your local database enviro
   db.donors.find({ status: "Approved", city: /whitefield/i })
   ```
 
-### 2. Blood Request Queries
+#### 2. Blood Request Queries
 * **Find all unresolved Emergency requests**:
   ```javascript
   db.bloodrequests.find({ status: "Pending", urgency: "Emergency" })

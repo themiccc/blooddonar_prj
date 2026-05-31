@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donor Registration | LifeLine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Navigation Bar -->
+  <div id="navbar-placeholder"></div>
+
+  <section class="container" style="padding: 60px 0; display: flex; justify-content: center;">
+    <div class="glass-card" style="max-width: 720px; width: 100%;">
+      <div style="text-align: center; margin-bottom: 32px;">
+        <h2 style="font-size: 2rem; margin-bottom: 8px;">Become a <span class="gradient-text">Blood Donor</span></h2>
+        <p style="color: var(--text-muted);">Register to join our network. Verification of contact details is required before submitting.</p>
+      </div>
+
+      <form id="register-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required placeholder="e.g. John Doe">
+          </div>
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" required min="18" max="65" placeholder="Must be 18-65">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" required>
+              <option value="" disabled selected>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="bloodGroup">Blood Group</label>
+            <select id="bloodGroup" required>
+              <option value="" disabled selected>Select Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- Email Field with Verification & Timer -->
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div style="display: flex; gap: 10px;">
+              <input type="email" id="email" required placeholder="e.g. name@example.com">
+              <button type="button" id="verify-email-btn" class="btn btn-secondary btn-sm" style="min-width: 90px;">Verify</button>
+            </div>
+            <div id="otp-email-group" style="display: none; margin-top: 10px;">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" id="otp-email" placeholder="Enter OTP" style="padding: 8px 12px; font-size: 0.85rem;">
+                <button type="button" id="confirm-otp-email-btn" class="btn btn-primary btn-sm" style="padding: 8px 14px; font-size: 0.85rem;">Confirm</button>
+              </div>
+              <div id="email-timer-container" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+                Resend code in <span id="email-timer-sec" style="color: var(--primary); font-weight: 600;">90</span>s
+              </div>
+              <button type="button" id="resend-email-otp-btn" class="btn btn-glass btn-sm" style="display: none; margin-top: 8px; font-size: 0.75rem; padding: 4px 10px;">Resend OTP</button>
+            </div>
+            <span id="email-verified-badge" class="badge badge-available" style="display: none; margin-top: 8px; width: fit-content;">✓ Verified</span>
+          </div>
+
+          <!-- Mobile Field with Country Code + Verification & Timer -->
+          <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <div style="display: flex; gap: 10px;">
+              <select id="mobile-country" style="width: 105px; flex-shrink: 0; padding: 10px 4px; font-size: 0.85rem; border-radius: 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-light); color: var(--text-main);">
+                <option value="+91" selected>🇮🇳 +91 (IN)</option>
+                <option value="+1">🇺🇸 +1 (US)</option>
+                <option value="+44">🇬🇧 +44 (UK)</option>
+                <option value="+66">🇹🇭 +66 (TH)</option>
+                <option value="+61">🇦🇺 +61 (AU)</option>
+                <option value="+81">🇯🇵 +81 (JP)</option>
+                <option value="+49">🇩🇪 +49 (DE)</option>
+                <option value="+33">🇫🇷 +33 (FR)</option>
+                <option value="+65">🇸🇬 +65 (SG)</option>
+                <option value="+971">🇦🇪 +971 (AE)</option>
+                <option value="+966">🇸🇦 +966 (SA)</option>
+                <option value="+82">🇰🇷 +82 (KR)</option>
+                <option value="+86">🇨🇳 +86 (CN)</option>
+                <option value="+7">🇷🇺 +7 (RU)</option>
+                <option value="+55">🇧🇷 +55 (BR)</option>
+                <option value="+52">🇲🇽 +52 (MX)</option>
+                <option value="+34">🇪🇸 +34 (ES)</option>
+                <option value="+39">🇮🇹 +39 (IT)</option>
+                <option value="+31">🇳🇱 +31 (NL)</option>
+                <option value="+41">🇨🇭 +41 (CH)</option>
+                <option value="+46">🇸🇪 +46 (SE)</option>
+                <option value="+47">🇳🇴 +47 (NO)</option>
+                <option value="+45">🇩🇰 +45 (DK)</option>
+                <option value="+32">🇧🇪 +32 (BE)</option>
+                <option value="+353">🇮🇪 +353 (IE)</option>
+                <option value="+64">🇳🇿 +64 (NZ)</option>
+                <option value="+27">🇿🇦 +27 (ZA)</option>
+                <option value="+20">🇪🇬 +20 (EG)</option>
+                <option value="+234">🇳🇬 +234 (NG)</option>
+                <option value="+254">🇰🇪 +254 (KE)</option>
+                <option value="+92">🇵🇰 +92 (PK)</option>
+                <option value="+880">🇧🇩 +880 (BD)</option>
+                <option value="+94">🇱🇰 +94 (LK)</option>
+                <option value="+977">🇳🇵 +977 (NP)</option>
+                <option value="+62">🇮🇩 +62 (ID)</option>
+                <option value="+60">🇲🇾 +60 (MY)</option>
+                <option value="+63">🇵🇭 +63 (PH)</option>
+                <option value="+84">🇻🇳 +84 (VN)</option>
+                <option value="+90">🇹🇷 +90 (TR)</option>
+                <option value="+30">🇬🇷 +30 (GR)</option>
+                <option value="+48">🇵🇱 +48 (PL)</option>
+                <option value="+351">🇵🇹 +351 (PT)</option>
+                <option value="+43">🇦🇹 +43 (AT)</option>
+                <option value="+36">🇭🇺 +36 (HU)</option>
+                <option value="+40">🇷🇴 +40 (RO)</option>
+                <option value="+380">🇺🇦 +380 (UA)</option>
+                <option value="+54">🇦🇷 +54 (AR)</option>
+                <option value="+56">🇨🇱 +56 (CL)</option>
+                <option value="+57">🇨🇴 +57 (CO)</option>
+                <option value="+58">🇻🇪 +58 (VE)</option>
+                <option value="+212">🇲🇦 +212 (MA)</option>
+                <option value="+965">🇰🇼 +965 (KW)</option>
+                <option value="+968">🇴🇲 +968 (OM)</option>
+                <option value="+974">🇶🇦 +974 (QA)</option>
+                <option value="+973">🇧🇭 +973 (BH)</option>
+                <option value="+95">🇲🇲 +95 (MM)</option>
+                <option value="+852">🇭🇰 +852 (HK)</option>
+                <option value="+886">🇹🇼 +886 (TW)</option>
+              </select>
+              <input type="tel" id="mobile" required placeholder="e.g. 8884657151" style="flex: 1;">
+              <button type="button" id="verify-mobile-btn" class="btn btn-secondary btn-sm" style="min-width: 90px;">Verify</button>
+            </div>
+            <div id="otp-mobile-group" style="display: none; margin-top: 10px;">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" id="otp-mobile" placeholder="Enter OTP" style="padding: 8px 12px; font-size: 0.85rem;">
+                <button type="button" id="confirm-otp-mobile-btn" class="btn btn-primary btn-sm" style="padding: 8px 14px; font-size: 0.85rem;">Confirm</button>
+              </div>
+              <div id="mobile-timer-container" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+                Resend code in <span id="mobile-timer-sec" style="color: var(--primary); font-weight: 600;">90</span>s
+              </div>
+              <button type="button" id="resend-mobile-otp-btn" class="btn btn-glass btn-sm" style="display: none; margin-top: 8px; font-size: 0.75rem; padding: 4px 10px;">Resend OTP</button>
+            </div>
+            <span id="mobile-verified-badge" class="badge badge-available" style="display: none; margin-top: 8px; width: fit-content;">✓ Verified</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required placeholder="Create secure password">
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" required placeholder="Confirm secure password">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- City Field with Auto-detect -->
+          <div class="form-group">
+            <label for="city">City / Area</label>
+            <div style="display: flex; gap: 10px;">
+              <input type="text" id="city" required placeholder="e.g. London">
+              <button type="button" id="detect-city-btn" class="btn btn-glass btn-sm" style="min-width: 100px;">Detect 📍</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">Full Address</label>
+            <input type="text" id="address" required placeholder="Street address, building number">
+          </div>
+        </div>
+
+        <button type="submit" id="register-submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 12px; padding: 14px;" disabled>
+          Register as Donor (Verify Contact Details First)
+        </button>
+      </form>
+
+      <p style="text-align: center; margin-top: 24px; color: var(--text-muted);">
+        Already have a donor account? <a href="login.html" style="color: var(--primary); font-weight: 600;">Login Here</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Dynamic Footer Section -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

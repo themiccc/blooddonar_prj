@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Control Console | LifeLine</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Smooth scrolling for anchor links */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Sub-section headers */
+    .admin-section-title {
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-grid-two {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 28px;
+    }
+
+    /* Fixed sidebar layout */
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navigation Header -->
+  <div id="navbar-placeholder"></div>
+
+  <section class="container" style="padding: 40px 0;">
+    <div style="border-bottom: 1px solid var(--border-light); padding-bottom: 24px; margin-bottom: 32px;">
+      <h2 style="font-size: 2rem;">Admin Control <span class="gradient-text">Console</span></h2>
+      <p style="color: var(--text-muted); margin-top: 4px;">Unified console. Approve accounts, toggle availability, track patient requests, and generate reports from a single workspace.</p>
+    </div>
+
+    <!-- Admin Unified Layout -->
+    <div class="dashboard-layout">
+      <!-- Sidebar Navigation Anchors -->
+      <aside class="sidebar">
+        <a href="#sec-overview" class="sidebar-link active" id="link-overview">
+          <span>📊</span> Overview & Charts
+        </a>
+        <a href="#sec-approvals" class="sidebar-link" id="link-approvals">
+          <span>🔔</span> Pending Approvals
+        </a>
+        <a href="#sec-requests" class="sidebar-link" id="link-requests">
+          <span>🩸</span> Active Blood Requests
+        </a>
+        <a href="#sec-directory" class="sidebar-link" id="link-directory">
+          <span>👥</span> Donor Directory
+        </a>
+        <a href="#sec-reports" class="sidebar-link" id="link-reports">
+          <span>📄</span> Operational Reports
+        </a>
+      </aside>
+
+      <!-- Main Content Stream -->
+      <main class="dashboard-content">
+        
+        <!-- SECTION 1: System Overview Metrics & Blood Chart -->
+        <section id="sec-overview" style="display: flex; flex-direction: column; gap: 28px;">
+          <div class="admin-section-title">
+            <h3>System Metrics & Overview</h3>
+            <span class="badge badge-available">Operational Status</span>
+          </div>
+
+          <!-- Metric Cards -->
+          <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="glass-card stat-card">
+              <div class="stat-val" id="stat-total-donors">0</div>
+              <div class="stat-label">Total Donors</div>
+            </div>
+            <div class="glass-card stat-card">
+              <div class="stat-val" style="color: var(--warning);" id="stat-pending-donors">0</div>
+              <div class="stat-label">Pending Approval</div>
+            </div>
+            <div class="glass-card stat-card">
+              <div class="stat-val" style="color: var(--danger);" id="stat-active-requests">0</div>
+              <div class="stat-label">Active Requests</div>
+            </div>
+            <div class="glass-card stat-card">
+              <div class="stat-val" style="color: var(--success);" id="stat-fulfilled-requests">0</div>
+              <div class="stat-label">Requests Fulfilled</div>
+            </div>
+          </div>
+
+          <!-- Distribution Chart -->
+          <div class="glass-card" style="width: 100%;">
+            <h3 style="margin-bottom: 12px;">Donor Blood Group Distribution</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">Breakdown of all approved active donors registered on LifeLine.</p>
+            <div id="blood-chart-container">
+              <!-- Rendered dynamically by admin.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: Pending Approvals & Live Requests Action Center -->
+        <section id="sec-approvals" style="display: flex; flex-direction: column; gap: 28px; margin-top: 32px;">
+          <div class="admin-section-title">
+            <h3>Pending Approvals Queue</h3>
+            <span class="badge badge-pending">Action Required</span>
+          </div>
+
+          <div class="glass-card" style="padding: 0;">
+            <div style="padding: 20px; border-bottom: 1px solid var(--border-light);">
+              <h4 style="font-size: 1.1rem;">Verification Approvals</h4>
+              <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 2px;">Voluntary donors whose accounts must be audited and approved before public visibility.</p>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Group</th>
+                    <th>Sex/Age</th>
+                    <th>City</th>
+                    <th>Contact Info</th>
+                    <th>Approval Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-pending-approvals-body">
+                  <tr>
+                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading approvals queue...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: Active Requests -->
+        <section id="sec-requests" style="display: flex; flex-direction: column; gap: 28px; margin-top: 32px;">
+          <div class="admin-section-title">
+            <h3>Active Blood Requests</h3>
+            <span class="badge badge-rejected">Live Feeds</span>
+          </div>
+
+          <div class="glass-card" style="padding: 0;">
+            <div style="padding: 20px; border-bottom: 1px solid var(--border-light);">
+              <h4 style="font-size: 1.1rem;">Emergency & General Patient Feeds</h4>
+              <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 2px;">Patient listings requesting immediate donor callbacks.</p>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Patient</th>
+                    <th>Blood</th>
+                    <th>Hospital Location</th>
+                    <th>Contact</th>
+                    <th>Urgency</th>
+                    <th>Date</th>
+                    <th>Status Control</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-requests-body">
+                  <tr>
+                    <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading requests...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: Donor Directory Table -->
+        <section id="sec-directory" style="display: flex; flex-direction: column; gap: 28px; margin-top: 32px;">
+          <div class="admin-section-title">
+            <h3>All Registered Donors Directory</h3>
+            <span class="badge badge-normal">Database Logs</span>
+          </div>
+
+          <div class="glass-card" style="padding: 0;">
+            <div style="padding: 24px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+              <div>
+                <h4 style="font-size: 1.1rem;">Donor Directory</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 2px;">Complete record search. Edit details, modify availability, or delete profiles.</p>
+              </div>
+              
+              <!-- Filter tools -->
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <select id="filter-donor-status" style="padding: 8px 16px; width: auto; font-size: 0.85rem;">
+                  <option value="All">All Statuses</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+                <select id="filter-donor-blood" style="padding: 8px 16px; width: auto; font-size: 0.85rem;">
+                  <option value="All">All Blood Groups</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Group</th>
+                    <th>Sex/Age</th>
+                    <th>City</th>
+                    <th>Contact Info</th>
+                    <th>Availability</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-donors-body">
+                  <tr>
+                    <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading directory...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 5: Report Generator -->
+        <section id="sec-reports" style="display: flex; flex-direction: column; gap: 28px; margin-top: 32px;">
+          <div class="admin-section-title">
+            <h3>Generate System Reports</h3>
+            <span class="badge badge-approved">Export Data</span>
+          </div>
+          
+          <div id="report-output-container" style="width: 100%;">
+            <!-- Rendered dynamically by admin.js -->
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </section>
+
+  <!-- Edit Donor Overlay Modal -->
+  <div id="edit-donor-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 600px;">
+      <button onclick="closeEditModal()" class="modal-close">&times;</button>
+      <h3 style="margin-bottom: 24px;">Modify Donor Record</h3>
+      
+      <form id="edit-donor-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-name">Full Name</label>
+            <input type="text" id="edit-name" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-age">Age</label>
+            <input type="number" id="edit-age" required min="18" max="65">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-gender">Gender</label>
+            <select id="edit-gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-blood">Blood Group</label>
+            <select id="edit-blood" required>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-mobile">Mobile Number</label>
+            <input type="tel" id="edit-mobile" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-email">Email Address</label>
+            <input type="email" id="edit-email" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-city">City / Area</label>
+            <input type="text" id="edit-city" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-available">Availability</label>
+            <select id="edit-available" required>
+              <option value="true">Available</option>
+              <option value="false">Unavailable</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-address">Address Details</label>
+          <input type="text" id="edit-address" required>
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
+          <button type="button" onclick="closeEditModal()" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dynamic Footer Section -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donor Dashboard | LifeLine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Navigation Header -->
+  <div id="navbar-placeholder"></div>
+
+  <section class="container" style="padding: 40px 0;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 24px; margin-bottom: 32px;">
+      <div>
+        <h2 style="font-size: 2rem;">Welcome, <span id="donor-welcome-name" class="gradient-text">Donor</span>!</h2>
+        <p style="color: var(--text-muted); margin-top: 4px;">Donor profile status: <span id="donor-status-badge" class="badge">Pending</span></p>
+      </div>
+      <div>
+        <span class="badge" id="avail-badge-header">Active</span>
+      </div>
+    </div>
+
+    <!-- Dashboard Core Layout -->
+    <div class="dashboard-layout">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-link active" data-target="sec-overview">
+          <span>📊</span> Overview Status
+        </div>
+        <div class="sidebar-link" data-target="sec-profile">
+          <span>👤</span> Edit Profile Details
+        </div>
+        <div class="sidebar-link" data-target="sec-requests">
+          <span>🩸</span> Matching Requests
+        </div>
+      </aside>
+
+      <!-- Content Area -->
+      <main class="dashboard-content">
+        
+        <!-- Tab 1: Overview -->
+        <div class="dashboard-sec" id="sec-overview" style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
+          <div class="glass-card" style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div>
+              <h3 style="margin-bottom: 16px;">Donation Availability</h3>
+              <p style="color: var(--text-muted); margin-bottom: 20px;">Toggle your online status. When set to 'Available', patients searching for matches can view your contact details.</p>
+              
+              <div style="display: flex; align-items: center; gap: 16px;">
+                <label class="switch">
+                  <input type="checkbox" id="availability-toggle">
+                  <span class="slider"></span>
+                </label>
+                <strong id="availability-status-text" style="font-size: 0.95rem; letter-spacing: 0.05em; color: var(--primary);">AVAILABLE FOR DONATION</strong>
+              </div>
+            </div>
+            
+            <div style="border-left: 1px solid var(--border-light); padding-left: 24px;">
+              <h3 style="margin-bottom: 16px;">Registered Info</h3>
+              <div style="display: flex; flex-direction: column; gap: 10px; color: var(--text-muted);">
+                <div>Blood Group: <strong id="donor-meta-blood" style="color: var(--primary);">O+</strong></div>
+                <div>Location (City): <strong id="donor-meta-city" style="color: var(--text-main);">London</strong></div>
+                <div>Verification: <strong id="donor-verification-status" style="color: var(--warning); font-weight: 600;">Pending</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Profile Update -->
+        <div class="dashboard-sec" id="sec-profile" style="display: none; flex-direction: column; gap: 24px; width: 100%;">
+          <div class="glass-card" style="width: 100%;">
+            <h3 style="margin-bottom: 24px;">Update Donor Profile</h3>
+            
+            <form id="update-profile-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="profile-name">Full Name</label>
+                  <input type="text" id="profile-name" required>
+                </div>
+                <div class="form-group">
+                  <label for="profile-age">Age</label>
+                  <input type="number" id="profile-age" required min="18" max="65">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="profile-gender">Gender</label>
+                  <select id="profile-gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="profile-blood">Blood Group</label>
+                  <select id="profile-blood" required>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="profile-mobile">Mobile Number</label>
+                  <input type="tel" id="profile-mobile" required>
+                </div>
+                <div class="form-group">
+                  <label for="profile-city">City / Area</label>
+                  <input type="text" id="profile-city" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="profile-address">Address Details</label>
+                <input type="text" id="profile-address" required>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 200px;">Save Profile Changes</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Tab 3: Matching Blood Requests -->
+        <div class="dashboard-sec" id="sec-requests" style="display: none; flex-direction: column; gap: 24px; width: 100%;">
+          <div class="glass-card" style="width: 100%; padding: 0;">
+            <div style="padding: 24px; border-bottom: 1px solid var(--border-light);">
+              <h3>Patient Requests Matching Your Blood Group</h3>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">These are patient requests that match your blood type. Reach out to them to arrange donations.</p>
+            </div>
+            
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Patient Name</th>
+                    <th>Blood Group</th>
+                    <th>Hospital</th>
+                    <th>Location</th>
+                    <th>Urgency</th>
+                    <th>Requested Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="matching-requests-body">
+                  <tr>
+                    <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading requests...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </section>
+
+  <!-- Patient Contact Modal -->
+  <div id="request-contact-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeRequestContactModal()">&times;</button>
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="logo-icon" style="margin: 0 auto 16px auto; width: 50px; height: 50px;">
+          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; fill: #fff;">
+            <path d="M12,2C12,2 6,8 6,14C6,17.31 8.69,20 12,20C15.31,20 18,17.31 18,14C18,8 12,2 12,2M12,18C9.79,18 8,16.21 8,14C8,12 10,9 12,6.5C14,9 16,12 16,14C16,16.21 14.21,18 12,18Z"/>
+          </svg>
+        </div>
+        <h3 id="modal-patient-name" style="font-size: 1.5rem; margin-bottom: 4px;">Patient Name</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Blood Group needed: <span id="modal-patient-blood" style="color: var(--primary); font-weight: 700;">O+</span>
+        </p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; color: var(--text-muted); font-size: 0.95rem;">
+        <div>🏥 Hospital: <strong id="modal-patient-hospital" style="color: var(--text-main);">St. John's</strong></div>
+        <div>📍 Location: <strong id="modal-patient-location" style="color: var(--text-main);">Whitefield</strong></div>
+        <div>📱 Contact Phone: <strong id="modal-patient-phone" style="color: var(--text-main);">+918884657151</strong></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 12px;">
+        <a href="#" id="modal-patient-call-btn" class="btn btn-primary" style="width: 100%; padding: 12px;">📞 Call Patient / Requester</a>
+      </div>
+      
+      <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 16px; line-height: 1.4;">
+        Please coordinate with the patient representative directly to arrange your blood donation details.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dynamic Footer Section -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/donor.js"></script>
+</body>
+</html>

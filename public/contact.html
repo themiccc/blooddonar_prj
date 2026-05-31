@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | LifeLine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Header Navigation -->
+  <div id="navbar-placeholder"></div>
+
+  <section class="container" style="padding: 60px 0;">
+    <div class="section-header">
+      <h2>Contact <span class="gradient-text">LifeLine Support</span></h2>
+      <p>Have questions about donation, running into issues, or want to collaborate with us? Let's connect.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: start;">
+      <!-- Message Form -->
+      <div class="glass-card">
+        <h3 style="margin-bottom: 24px;">Send us a message</h3>
+        
+        <form id="contact-inquiry-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">Your Name</label>
+              <input type="text" id="contact-name" required placeholder="e.g. John Doe">
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" required placeholder="e.g. name@example.com">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" required placeholder="What is this regarding?">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" required placeholder="Type your detailed message here..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="padding: 12px 28px;">Send Inquiry Message</button>
+        </form>
+      </div>
+
+      <!-- Info Column -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Emergency contact card -->
+        <div class="glass-card" style="border-color: var(--border-glow); background: rgba(225, 29, 72, 0.05);">
+          <h3 style="color: var(--primary); margin-bottom: 12px;">🚨 Emergency Helpline</h3>
+          <p style="font-size: 0.95rem; margin-bottom: 16px;">If you have a critical, life-threatening situation needing blood units in minutes, please dial our emergency coordinates:</p>
+          <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); font-family: monospace;">+1 (800) 555-LIFE</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">Available 24 hours / 7 days a week.</p>
+        </div>
+
+        <!-- General Info card -->
+        <div class="glass-card">
+          <h3 style="margin-bottom: 16px;">General Information</h3>
+          <div style="display: flex; flex-direction: column; gap: 16px; color: var(--text-muted); font-size: 0.95rem;">
+            <div>
+              <strong>🏢 Head Office Address:</strong><br>
+              LifeLine Foundation, SW Block<br>
+              New Horizon College of Engineering (NHCE)<br>
+              Outer Ring Road, Near Marathahalli<br>
+              Bengaluru, Karnataka - 560103
+            </div>
+            <div>
+              <strong>✉ Email Support:</strong><br>
+              <a href="mailto:support@lifelinefinder.org" style="color: var(--primary);">support@lifelinefinder.org</a>
+            </div>
+            <div>
+              <strong>📞 Business Helpline:</strong><br>
+              Available 24/7 - Don't hesitate to call: <a href="tel:+918884657151" style="color: var(--text-main); font-weight: 600;">+91 88846XXXXX</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Razorpay Donation card -->
+        <div class="glass-card" style="border-color: var(--border-glow); background: rgba(255, 255, 255, 0.02);">
+          <h3 style="margin-bottom: 12px; color: var(--primary);">💖 Support Our Mission</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+            So here, this just works a payment gatway but, these needs the upgrade for RAZORPAY to process them, so tell ur co-ordinator some shit and proceed!
+          </p>
+          <form id="donation-form" style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="donation-amount">Donation Amount (INR)</label>
+              <input type="number" id="donation-amount" required min="10" placeholder="e.g. ₹500" style="padding: 10px 14px;">
+            </div>
+            <button type="submit" id="donation-submit-btn" class="btn btn-primary" style="width: 100%;">
+              Donate Now via Razorpay
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic Footer Section -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactForm = document.getElementById('contact-inquiry-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          const name = document.getElementById('contact-name').value.trim();
+          const email = document.getElementById('contact-email').value.trim();
+          const subject = document.getElementById('contact-subject').value.trim();
+          const message = document.getElementById('contact-message').value.trim();
+          
+          // Construct mailto redirect payload
+          const bodyText = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+          const mailtoUrl = `mailto:support@lifelinefinder.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+          
+          showAlert('Opening your local email client to send the inquiry message...', 'success');
+          
+          // Launch default mailing app
+          window.location.href = mailtoUrl;
+          
+          contactForm.reset();
+        });
+      }
+
+      // Razorpay Donation logic
+      const donationForm = document.getElementById('donation-form');
+      if (donationForm) {
+        donationForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const amount = document.getElementById('donation-amount').value;
+          const submitBtn = document.getElementById('donation-submit-btn');
+
+          submitBtn.textContent = 'Processing Order...';
+          submitBtn.disabled = true;
+
+          try {
+            const res = await fetch('/api/payment/order', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ amount })
+            });
+            const orderData = await res.json();
+
+            if (orderData.success) {
+              const options = {
+                key: 'rzp_test_St6QNdpzAqE1Hx', // Use Razorpay test key ID
+                amount: orderData.amount,
+                currency: orderData.currency,
+                name: 'LifeLine Foundation',
+                description: 'Voluntary Blood Donor Support Donation',
+                order_id: orderData.order_id,
+                handler: function (response) {
+                  showAlert(`Thank you! Donation of ₹${amount} received successfully. ID: ${response.razorpay_payment_id}`, 'success');
+                  donationForm.reset();
+                },
+                theme: {
+                  color: '#e11d48'
+                }
+              };
+              const rzp = new Razorpay(options);
+              rzp.open();
+            } else {
+              showAlert(orderData.message || 'Order initialization failed', 'error');
+            }
+          } catch (err) {
+            showAlert('Failed to connect to donation gateway', 'error');
+          } finally {
+            submitBtn.textContent = 'Donate Now via Razorpay';
+            submitBtn.disabled = false;
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

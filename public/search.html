@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Blood Donors | LifeLine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Navigation Bar -->
+  <div id="navbar-placeholder"></div>
+
+  <section class="container" style="padding: 60px 0;">
+    <div class="section-header">
+      <h2>Search Available <span class="gradient-text">Blood Donors</span></h2>
+      <p>Filter approved, voluntary donors near you. Contact them directly or submit an emergency request.</p>
+    </div>
+
+    <!-- Search Form Card -->
+    <div class="glass-card" style="margin-bottom: 40px;">
+      <form id="search-donors-form" class="quick-search-flex">
+        <div class="form-group">
+          <label for="search-blood">Blood Group Needed</label>
+          <select id="search-blood">
+            <option value="All">All Blood Groups</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="search-city">City / Area</label>
+          <input type="text" id="search-city" placeholder="e.g. London, New York">
+        </div>
+        <button type="submit" class="btn btn-primary" style="height: 48px; min-width: 180px;">Filter Donors</button>
+      </form>
+    </div>
+
+    <!-- Results Grid -->
+    <div class="donor-grid" id="search-results-grid">
+      <!-- Injected by search.js -->
+    </div>
+  </section>
+
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="logo-icon" style="margin: 0 auto 16px auto; width: 50px; height: 50px;">
+          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; fill: #fff;">
+            <path d="M12,2C12,2 6,8 6,14C6,17.31 8.69,20 12,20C15.31,20 18,17.31 18,14C18,8 12,2 12,2M12,18C9.79,18 8,16.21 8,14C8,12 10,9 12,6.5C14,9 16,12 16,14C16,16.21 14.21,18 12,18Z"/>
+          </svg>
+        </div>
+        <h3 id="modal-donor-name" style="font-size: 1.5rem; margin-bottom: 4px;">Donor Name</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Blood Group: <span id="modal-donor-blood" style="color: var(--primary); font-weight: 700;">O+</span> &bull; Location: <span id="modal-donor-city">New York</span></p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+        <a href="#" id="modal-call-btn" class="btn btn-primary" style="width: 100%; padding: 12px;">📞 Call Donor</a>
+        <a href="#" id="modal-email-btn" class="btn btn-glass" style="width: 100%; padding: 12px; border-color: rgba(255, 255, 255, 0.1);">✉ Email Donor</a>
+      </div>
+
+      <div id="modal-availability-alert" class="badge badge-pending" style="display: none; padding: 10px; border-radius: 8px; font-size: 0.8rem; text-transform: none; text-align: left; line-height: 1.4;">
+        ⚠️ Note: This donor has toggled their availability status to offline. Please contact them only if absolutely urgent.
+      </div>
+      
+      <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 16px; line-height: 1.4;">
+        By contacting this voluntary donor, you agree to respect their privacy and use this data solely for immediate medical needs.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dynamic Footer Section -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>

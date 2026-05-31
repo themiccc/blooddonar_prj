@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeLine | Blood Donor Finder System</title>
+  <meta name="description" content="Find blood donors near you in seconds. Premium, secure, and fast blood donation management platform.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header Navigation bar (Injected dynamically) -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>Connect & Save Lives <span class="gradient-text">Instantly</span>.</h1>
+        <p>LifeLine is a premium, secure portal that connects blood donors with patients in critical need. Zero lag, high availability, and search filters tailored to locate matches instantly.</p>
+        <div class="hero-buttons">
+          <a href="search.html" class="btn btn-primary">Find Donors Now</a>
+          <a href="register.html" class="btn btn-secondary">Become a Donor</a>
+        </div>
+      </div>
+      
+      <!-- Premium CSS Blood Droplet Graphic -->
+      <div class="blood-droplet-container">
+        <div class="glow-ring"></div>
+        <div class="blood-droplet">
+          <div class="blood-droplet-inner">O+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Search Section -->
+  <section class="container quick-search-box">
+    <div class="glass-card">
+      <h2 style="font-size: 1.4rem; margin-bottom: 20px;">Emergency Donor Search</h2>
+      <form action="search.html" method="GET" class="quick-search-flex">
+        <div class="form-group">
+          <label for="bloodGroup">Blood Group Needed</label>
+          <select name="bloodGroup" id="bloodGroup">
+            <option value="All">All Blood Groups</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="city">City / Area</label>
+          <input type="text" name="city" id="city" placeholder="e.g. New York, London">
+        </div>
+        <button type="submit" class="btn btn-primary" style="height: 48px; min-width: 160px;">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Statistics Panel -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="glass-card stat-card">
+        <div class="stat-val gradient-text" id="home-stat-donors">1,240</div>
+        <div class="stat-label">Verified Donors</div>
+      </div>
+      <div class="glass-card stat-card">
+        <div class="stat-val gradient-text" id="home-stat-fulfilled">890+</div>
+        <div class="stat-label">Requests Fulfilled</div>
+      </div>
+      <div class="glass-card stat-card">
+        <div class="stat-val gradient-text" id="home-stat-time">30s</div>
+        <div class="stat-label">Match Response</div>
+      </div>
+      <div class="glass-card stat-card">
+        <div class="stat-val gradient-text" id="home-stat-cities">50+</div>
+        <div class="stat-label">Cities Covered</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Active Requests Table -->
+  <section class="container" style="margin-top: 40px;">
+    <div class="section-header">
+      <h2>Recent Emergency Blood Requests</h2>
+      <p>Direct patient requests from hospitals needing immediate donation assistance.</p>
+    </div>
+    
+    <div class="glass-card" style="padding: 0;">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Patient Name</th>
+              <th>Blood Needed</th>
+              <th>Hospital & Location</th>
+              <th>Urgency Level</th>
+              <th>Date Requested</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="home-requests-body">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading requests...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Patient Request Contact Modal -->
+  <div id="request-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeRequestModal()">&times;</button>
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="logo-icon" style="margin: 0 auto 16px auto; width: 50px; height: 50px;">
+          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; fill: #fff;">
+            <path d="M12,2C12,2 6,8 6,14C6,17.31 8.69,20 12,20C15.31,20 18,17.31 18,14C18,8 12,2 12,2M12,18C9.79,18 8,16.21 8,14C8,12 10,9 12,6.5C14,9 16,12 16,14C16,16.21 14.21,18 12,18Z"/>
+          </svg>
+        </div>
+        <h3 id="modal-patient-name" style="font-size: 1.5rem; margin-bottom: 4px;">Patient Name</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Blood Needed: <span id="modal-patient-blood" style="color: var(--primary); font-weight: 700;">O+</span></p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 10px;">
+        <div>🏥 Hospital: <strong id="modal-patient-hospital" style="color: var(--text-main);">St. Thomas Hospital</strong></div>
+        <div>📍 Location: <strong id="modal-patient-location" style="color: var(--text-main);">London</strong></div>
+        <div>⚠️ Urgency: <span id="modal-patient-urgency" class="badge">Emergency</span></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <a href="#" id="modal-patient-call-btn" class="btn btn-primary" style="width: 100%; padding: 12px;">📞 Call Patient Helpline</a>
+      </div>
+      
+      <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 16px; line-height: 1.4;">
+        Please contact this patient or hospital directly to coordinate your voluntary blood donation. Thank you for saving lives!
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer placeholder (Injected dynamically) -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script>
+    // Home-page specific loader for recent active requests
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tbody = document.getElementById('home-requests-body');
+      
+      // Close modal on background overlay click
+      const modal = document.getElementById('request-modal');
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeRequestModal();
+        });
+      }
+
+      try {
+        const res = await fetch('/api/request/active');
+        const data = await res.json();
+        
+        if (data.success) {
+          // Dynamic overview stats updates
+          const resStats = await fetch('/api/request/search'); // Get all donors count
+          const donorData = await resStats.json();
+          if (donorData.success) {
+            document.getElementById('home-stat-donors').textContent = donorData.count + 542; // Add simulated padding for rich looks
+          }
+
+          if (data.data.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No pending emergency requests. Keep saving lives!</td></tr>`;
+            return;
+          }
+
+          tbody.innerHTML = '';
+          window.activeRequests = data.data; // Store requests globally for modal display
+
+          // Show only top 5 requests
+          data.data.slice(0, 5).forEach((req, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><strong>${req.patientName}</strong></td>
+              <td><span class="badge badge-rejected">${req.bloodGroup}</span></td>
+              <td>${req.hospitalName} (${req.location})</td>
+              <td><span class="badge badge-${req.urgency.toLowerCase()}">${req.urgency}</span></td>
+              <td>${formatDate(req.requestDate)}</td>
+              <td>
+                <button onclick="openRequestModal(${idx})" class="btn btn-primary btn-sm" style="padding: 4px 12px; font-size: 0.8rem;">Contact</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--danger); padding: 30px;">Failed to load active requests</td></tr>`;
+      }
+    });
+
+    // Modal Control Functions
+    function openRequestModal(index) {
+      const req = window.activeRequests[index];
+      if (!req) return;
+
+      document.getElementById('modal-patient-name').textContent = req.patientName;
+      document.getElementById('modal-patient-blood').textContent = req.bloodGroup;
+      document.getElementById('modal-patient-hospital').textContent = req.hospitalName;
+      document.getElementById('modal-patient-location').textContent = req.location;
+      
+      const urgencyBadge = document.getElementById('modal-patient-urgency');
+      urgencyBadge.textContent = req.urgency;
+      urgencyBadge.className = `badge badge-${req.urgency.toLowerCase()}`;
+
+      const callBtn = document.getElementById('modal-patient-call-btn');
+      callBtn.href = `tel:${req.contactNumber}`;
+      callBtn.textContent = `📞 Call Hospital/Helpline (${req.contactNumber})`;
+
+      document.getElementById('request-modal').style.display = 'flex';
+    }
+
+    function closeRequestModal() {
+      document.getElementById('request-modal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Dependency directory
+node_modules/
+
+# Local configuration file (contains API keys/secrets)
+.env
+
+# Local database JSON folder
+data/*.json
+
+# Operating System files
+.DS_Store
+Thumbs.db

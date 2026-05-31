@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | LifeLine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Navigation Header -->
+  <div id="navbar-placeholder"></div>
+
+  <section class="container" style="padding: 100px 0; display: flex; justify-content: center;">
+    <div class="glass-card" style="max-width: 440px; width: 100%;">
+      <div style="text-align: center; margin-bottom: 32px;">
+        <h2 style="font-size: 2rem; margin-bottom: 8px;">Admin <span class="gradient-text">Console</span></h2>
+        <p style="color: var(--text-muted);">Access administrative management system controls. Authorized access only.</p>
+      </div>
+
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label for="username">Admin Username</label>
+          <input type="text" id="username" required placeholder="Enter username">
+        </div>
+        <div class="form-group">
+          <label for="password">Security Password</label>
+          <input type="password" id="password" required placeholder="Enter password">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 12px; padding: 14px; background: linear-gradient(135deg, #be123c 0%, #9f1239 100%);">
+          Log In Console
+        </button>
+      </form>
+
+      <p style="text-align: center; margin-top: 24px; color: var(--text-muted); font-size: 0.85rem;">
+        Default Credentials: <code>admin</code> / <code>admin123</code>
+      </p>
+    </div>
+  </section>
+
+  <!-- Dynamic Footer Section -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

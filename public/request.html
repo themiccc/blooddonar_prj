@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Blood | LifeLine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Header Navigation -->
+  <div id="navbar-placeholder"></div>
+
+  <section class="container" style="padding: 60px 0; display: flex; justify-content: center;">
+    <div class="glass-card" style="max-width: 780px; width: 100%;">
+      <div style="text-align: center; margin-bottom: 32px;">
+        <h2 style="font-size: 2rem; margin-bottom: 8px;">Submit Blood <span class="gradient-text">Request</span></h2>
+        <p style="color: var(--text-muted);">Post details to alert active matching donors. Phone verification is required.</p>
+      </div>
+
+      <form id="blood-request-form">
+        <div class="form-group">
+          <label for="req-patient-name">Patient Name</label>
+          <input type="text" id="req-patient-name" required placeholder="Full name of the patient">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="req-blood-group">Blood Group Needed</label>
+            <select id="req-blood-group" required>
+              <option value="" disabled selected>Select Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="req-urgency">Urgency Level</label>
+            <select id="req-urgency" required>
+              <option value="Normal">Normal (Stock/Scheduled Surgery)</option>
+              <option value="Urgent">Urgent (Within 24 Hours)</option>
+              <option value="Emergency">Emergency (Immediate Need)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="req-hospital-select">Hospital Name</label>
+          <select id="req-hospital-select" required style="width: 100%; border-radius: 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-light); color: var(--text-main); padding: 12px; font-size: 0.95rem;">
+            <option value="" disabled selected>Select Hospital in Bengaluru (with Location)</option>
+            <option value="Apollo Hospitals - Bannerghatta Road, Bilekahalli">Apollo Hospitals - Bannerghatta Road, Bilekahalli</option>
+            <option value="Apollo Hospitals - Jayanagar">Apollo Hospitals - Jayanagar</option>
+            <option value="Manipal Hospital - HAL Old Airport Road">Manipal Hospital - HAL Old Airport Road</option>
+            <option value="Manipal Hospital - Whitefield">Manipal Hospital - Whitefield</option>
+            <option value="Manipal Hospital - Malleshwaram">Manipal Hospital - Malleshwaram</option>
+            <option value="Fortis Hospital - Bannerghatta Road, Bilekahalli">Fortis Hospital - Bannerghatta Road, Bilekahalli</option>
+            <option value="Fortis Hospital - Cunningham Road">Fortis Hospital - Cunningham Road</option>
+            <option value="Fortis Hospital - Rajajinagar">Fortis Hospital - Rajajinagar</option>
+            <option value="NIMHANS - Hosur Road, Lakkasandra">NIMHANS - Hosur Road, Lakkasandra</option>
+            <option value="Narayana Health City - Bommasandra, Hosur Road">Narayana Health City - Bommasandra, Hosur Road</option>
+            <option value="Narayana Multispeciality Hospital - HSR Layout">Narayana Multispeciality Hospital - HSR Layout</option>
+            <option value="Narayana Multispeciality Hospital - Whitefield">Narayana Multispeciality Hospital - Whitefield</option>
+            <option value="Sakra World Hospital - Marathahalli Outer Ring Road">Sakra World Hospital - Marathahalli Outer Ring Road</option>
+            <option value="Aster CMI Hospital - Hebbal">Aster CMI Hospital - Hebbal</option>
+            <option value="Aster RV Hospital - JP Nagar">Aster RV Hospital - JP Nagar</option>
+            <option value="St. John's Medical College Hospital - Sarjapur Road, Koramangala">St. John's Medical College Hospital - Sarjapur Road, Koramangala</option>
+            <option value="MS Ramaiah Memorial Hospital - New BEL Road, MSR Nagar">MS Ramaiah Memorial Hospital - New BEL Road, MSR Nagar</option>
+            <option value="Sagar Hospitals - Jayanagar">Sagar Hospitals - Jayanagar</option>
+            <option value="Sagar Hospitals - Kumaraswamy Layout">Sagar Hospitals - Kumaraswamy Layout</option>
+            <option value="Victoria Hospital - KR Market">Victoria Hospital - KR Market</option>
+            <option value="Vydehi Institute of Medical Sciences - Whitefield">Vydehi Institute of Medical Sciences - Whitefield</option>
+            <option value="Kempegowda Institute of Medical Sciences (KIMS) - VV Puram">Kempegowda Institute of Medical Sciences (KIMS) - VV Puram</option>
+            <option value="Bowring & Lady Curzon Hospital - Shivajinagar">Bowring & Lady Curzon Hospital - Shivajinagar</option>
+            <option value="KC General Hospital - Malleshwaram">KC General Hospital - Malleshwaram</option>
+            <option value="Sparsh Hospital - Yeshwanthpur">Sparsh Hospital - Yeshwanthpur</option>
+            <option value="Sparsh Hospital - Infantry Road">Sparsh Hospital - Infantry Road</option>
+            <option value="Cloudnine Hospital - Jayanagar">Cloudnine Hospital - Jayanagar</option>
+            <option value="Cloudnine Hospital - Old Airport Road">Cloudnine Hospital - Old Airport Road</option>
+            <option value="Motherhood Hospital - Indiranagar">Motherhood Hospital - Indiranagar</option>
+            <option value="Motherhood Hospital - Sarjapur Road">Motherhood Hospital - Sarjapur Road</option>
+            <option value="HBS Hospital - Shivaji Nagar">HBS Hospital - Shivaji Nagar</option>
+            <option value="HCG Cancer Centre - Double Road, Shanti Nagar">HCG Cancer Centre - Double Road, Shanti Nagar</option>
+            <option value="Columbia Asia Hospital (Manipal) - Hebbal">Columbia Asia Hospital (Manipal) - Hebbal</option>
+            <option value="Columbia Asia Hospital (Manipal) - Sarjapur Road">Columbia Asia Hospital (Manipal) - Sarjapur Road</option>
+            <option value="Columbia Asia Hospital (Manipal) - Yeshwanthpur">Columbia Asia Hospital (Manipal) - Yeshwanthpur</option>
+            <option value="People Tree Hospitals - Yeshwanthpur">People Tree Hospitals - Yeshwanthpur</option>
+            <option value="St. Philomena's Hospital - Campbell Road, Viveknagar">St. Philomena's Hospital - Campbell Road, Viveknagar</option>
+            <option value="Baptist Hospital - Hebbal, Bellary Road">Baptist Hospital - Hebbal, Bellary Road</option>
+            <option value="Kidwai Memorial Institute of Oncology - Hosur Road">Kidwai Memorial Institute of Oncology - Hosur Road</option>
+            <option value="Vikram Hospital - Cunningham Road">Vikram Hospital - Cunningham Road</option>
+            <option value="Bhagwan Mahaveer Jain Hospital - Vasanth Nagar">Bhagwan Mahaveer Jain Hospital - Vasanth Nagar</option>
+            <option value="Shankara Eye Hospital - Kundalahalli, Marathahalli">Shankara Eye Hospital - Kundalahalli, Marathahalli</option>
+            <option value="Narayana Nethralaya - Rajajinagar">Narayana Nethralaya - Rajajinagar</option>
+            <option value="Narayana Nethralaya - Bommasandra">Narayana Nethralaya - Bommasandra</option>
+            <option value="Mallige Hospital - Crescent Road">Mallige Hospital - Crescent Road</option>
+            <option value="Nu Hospitals - Padmanabhanagar">Nu Hospitals - Padmanabhanagar</option>
+            <option value="Trustwell Hospitals - JC Road">Trustwell Hospitals - JC Road</option>
+            <option value="Command Hospital (Air Force) - Cambridge Road">Command Hospital (Air Force) - Cambridge Road</option>
+            <option value="Rainbow Children's Hospital - Marathahalli">Rainbow Children's Hospital - Marathahalli</option>
+            <option value="Rainbow Children's Hospital - Bannerghatta Road">Rainbow Children's Hospital - Bannerghatta Road</option>
+            <option value="Vasavi Hospital - Kumaraswamy Layout">Vasavi Hospital - Kumaraswamy Layout</option>
+            <option value="Basavanagudi Shekhar Hospital - Basavanagudi">Basavanagudi Shekhar Hospital - Basavanagudi</option>
+            <option value="Bangalore Hospital - RV Road, Basavanagudi">Bangalore Hospital - RV Road, Basavanagudi</option>
+            <option value="St. Martha's Hospital - Nrupathunga Road">St. Martha's Hospital - Nrupathunga Road</option>
+            <option value="Sri Jayadeva Institute of Cardiovascular Sciences - Jayanagar">Sri Jayadeva Institute of Cardiovascular Sciences - Jayanagar</option>
+            <option value="Brindavan Hospital - Chamarajpet">Brindavan Hospital - Chamarajpet</option>
+            <option value="CV Raman General Hospital - Indiranagar">CV Raman General Hospital - Indiranagar</option>
+            <option value="Abhayahasta Multispecialty Hospital - CV Raman Nagar">Abhayahasta Multispecialty Hospital - CV Raman Nagar</option>
+            <option value="Other">Other (Hospital not listed)</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="req-hospital-custom-group" style="display: none; margin-top: 10px;">
+          <label for="req-hospital-custom">Custom Hospital Name</label>
+          <input type="text" id="req-hospital-custom" placeholder="Enter full name of the hospital">
+        </div>
+
+        <!-- Location field in its own full-width group -->
+        <div class="form-group">
+          <label for="req-location">City / Location</label>
+          <div style="display: flex; gap: 10px;">
+            <input type="text" id="req-location" required placeholder="e.g. Bengaluru">
+            <button type="button" id="detect-req-location-btn" class="btn btn-glass btn-sm" style="min-width: 120px;">Detect 📍</button>
+          </div>
+        </div>
+
+        <!-- Contact Phone on its own full-width group down here -->
+        <div class="form-group" style="margin-top: 20px;">
+          <label for="req-contact-number">Contact Phone Number</label>
+          <div style="display: flex; gap: 10px;">
+            <select id="req-mobile-country" style="width: 115px; flex-shrink: 0; padding: 10px 4px; font-size: 0.85rem; border-radius: 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-light); color: var(--text-main);">
+              <option value="+91" selected>🇮🇳 +91 (IN)</option>
+              <option value="+1">🇺🇸 +1 (US)</option>
+              <option value="+44">🇬🇧 +44 (UK)</option>
+              <option value="+66">🇹🇭 +66 (TH)</option>
+              <option value="+61">🇦🇺 +61 (AU)</option>
+              <option value="+81">🇯🇵 +81 (JP)</option>
+              <option value="+49">🇩🇪 +49 (DE)</option>
+              <option value="+33">🇫🇷 +33 (FR)</option>
+              <option value="+65">🇸🇬 +65 (SG)</option>
+              <option value="+971">🇦🇪 +971 (AE)</option>
+              <option value="+966">🇸🇦 +966 (SA)</option>
+              <option value="+82">🇰🇷 +82 (KR)</option>
+              <option value="+86">🇨🇳 +86 (CN)</option>
+              <option value="+7">🇷🇺 +7 (RU)</option>
+              <option value="+55">🇧🇷 +55 (BR)</option>
+              <option value="+52">🇲🇽 +52 (MX)</option>
+              <option value="+34">🇪🇸 +34 (ES)</option>
+              <option value="+39">🇮🇹 +39 (IT)</option>
+              <option value="+31">🇳🇱 +31 (NL)</option>
+              <option value="+41">🇨🇭 +41 (CH)</option>
+              <option value="+46">🇸🇪 +46 (SE)</option>
+              <option value="+47">🇳🇴 +47 (NO)</option>
+              <option value="+45">🇩🇰 +45 (DK)</option>
+              <option value="+32">🇧🇪 +32 (BE)</option>
+              <option value="+353">🇮🇪 +353 (IE)</option>
+              <option value="+64">🇳🇿 +64 (NZ)</option>
+              <option value="+27">🇿🇦 +27 (ZA)</option>
+              <option value="+20">🇪🇬 +20 (EG)</option>
+              <option value="+234">🇳🇬 +234 (NG)</option>
+              <option value="+254">🇰🇪 +254 (KE)</option>
+              <option value="+92">🇵🇰 +92 (PK)</option>
+              <option value="+880">🇧🇩 +880 (BD)</option>
+              <option value="+94">🇱🇰 +94 (LK)</option>
+              <option value="+977">🇳🇵 +977 (NP)</option>
+              <option value="+62">🇮🇩 +62 (ID)</option>
+              <option value="+60">🇲🇾 +60 (MY)</option>
+              <option value="+63">🇵🇭 +63 (PH)</option>
+              <option value="+84">🇻🇳 +84 (VN)</option>
+              <option value="+90">🇹🇷 +90 (TR)</option>
+              <option value="+30">🇬🇷 +30 (GR)</option>
+              <option value="+48">🇵🇱 +48 (PL)</option>
+              <option value="+351">🇵🇹 +351 (PT)</option>
+              <option value="+43">🇦🇹 +43 (AT)</option>
+              <option value="+36">🇭🇺 +36 (HU)</option>
+              <option value="+40">🇷🇴 +40 (RO)</option>
+              <option value="+380">🇺🇦 +380 (UA)</option>
+              <option value="+54">🇦🇷 +54 (AR)</option>
+              <option value="+56">🇨🇱 +56 (CL)</option>
+              <option value="+57">🇨🇴 +57 (CO)</option>
+              <option value="+58">🇻🇪 +58 (VE)</option>
+              <option value="+212">🇲🇦 +212 (MA)</option>
+              <option value="+965">🇰🇼 +965 (KW)</option>
+              <option value="+968">🇴🇲 +968 (OM)</option>
+              <option value="+974">🇶🇦 +974 (QA)</option>
+              <option value="+973">🇧🇭 +973 (BH)</option>
+              <option value="+95">🇲🇲 +95 (MM)</option>
+              <option value="+852">🇭🇰 +852 (HK)</option>
+              <option value="+886">🇹🇼 +886 (TW)</option>
+            </select>
+            <input type="tel" id="req-contact-number" required placeholder="e.g. 8884657151" style="flex: 1;">
+            <button type="button" id="verify-req-phone-btn" class="btn btn-secondary btn-sm" style="min-width: 120px;">Verify</button>
+          </div>
+          <div id="otp-req-phone-group" style="display: none; margin-top: 10px;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="text" id="otp-req-phone" placeholder="OTP (Enter 1234)" style="padding: 8px 12px; font-size: 0.85rem;">
+              <button type="button" id="confirm-otp-req-phone-btn" class="btn btn-primary btn-sm" style="padding: 8px 14px; font-size: 0.85rem;">Confirm</button>
+            </div>
+            <div id="req-phone-timer-container" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+              Resend code in <span id="req-phone-timer-sec" style="color: var(--primary); font-weight: 600;">90</span>s
+            </div>
+            <button type="button" id="resend-req-phone-otp-btn" class="btn btn-glass btn-sm" style="display: none; margin-top: 8px; font-size: 0.75rem; padding: 4px 10px;">Resend OTP</button>
+          </div>
+          <span id="req-phone-verified-badge" class="badge badge-available" style="display: none; margin-top: 8px; width: fit-content;">✓ Verified</span>
+        </div>
+
+        <div class="badge badge-normal" style="display: block; width: 100%; border-radius: 8px; margin-bottom: 24px; padding: 12px; font-size: 0.8rem; text-transform: none; text-align: left; line-height: 1.4;">
+          ℹ️ Your request will be published on our home page feed. Matching registered donors will be able to see the patient's hospital details and call you directly to arrange donations.
+        </div>
+
+        <button type="submit" id="request-submit-btn" class="btn btn-primary" style="width: 100%; padding: 14px;" disabled>
+          Post Emergency Request (Verify Phone First)
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Dynamic Footer Section -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/request.js"></script>
+</body>
+</html>

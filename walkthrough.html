@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Walkthrough - Blood Donor Finder System</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 0 30px;
+    background-color: #fff;
+  }
+  h1 {
+    font-size: 2.2em;
+    color: #c92a2a;
+    border-bottom: 3px solid #c92a2a;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: 1.5em;
+    color: #2b2b2b;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 6px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 1.2em;
+    color: #495057;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 1.05em;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  ul, ol {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-left: 25px;
+  }
+  li {
+    margin-bottom: 8px;
+    font-size: 1.05em;
+  }
+  code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background-color: #f1f3f5;
+    color: #c92a2a;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  pre {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 18px 0;
+  }
+  pre code {
+    background-color: transparent;
+    color: #333;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.9em;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid #eaeaea;
+    margin: 35px 0;
+  }
+  .badge {
+    background-color: #f1f3f5;
+    color: #495057;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .highlight-block {
+    background-color: #fff5f5;
+    border-left: 5px solid #c92a2a;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+  }
+  .highlight-block p:last-child {
+    margin-bottom: 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>Project Walkthrough - Blood Donor Finder System</h1>
+
+<p>The <strong>Blood Donor Finder System</strong> is a complete, production-ready full-stack application built to connect blood donors with patients in real-time. The application is designed with a premium, visually stunning <strong>Red-Glassmorphism CSS Design System</strong> and is equipped with advanced verification controls, dual-mode database capability, geolocation support, and automated email/SMS workflows.</p>
+
+<hr>
+
+<h2>🌟 Key Accomplishments</h2>
+<ol>
+  <li><strong>Full-Stack Integration</strong>: Built a robust Node.js/Express.js backend connecting to MongoDB via Mongoose, with a fully responsive custom HTML/CSS/JS frontend.</li>
+  <li><strong>Dual-Mode Database Fallback</strong>: Implemented a fail-safe database connection system in <code>db.js</code> that falls back to a <strong>local JSON database</strong> inside the <code>data/</code> folder if a running MongoDB server is unavailable.</li>
+  <li><strong>Security (System Design Goals)</strong>:
+    <ul>
+      <li><strong>Password Protection</strong>: Passwords are encrypted using standard salt hashing via <code>bcryptjs</code>.</li>
+      <li><strong>Session Verification</strong>: Created secure HTTP-only cookies containing signed JWT session tokens.</li>
+      <li><strong>Access Middleware</strong>: Added role-based verification checking in <code>auth.js</code> to safeguard administrative dashboards.</li>
+    </ul>
+  </li>
+  <li><strong>Premium Red-Glassmorphism UI</strong>:
+    <ul>
+      <li>Designed a deep onyx theme with crimson accents, high contrast typography, card borders with glow, custom scrollbars, and fluid animations.</li>
+      <li>Built a <strong>dynamic custom bar chart widget</strong> inside the admin dashboard using pure CSS grid/flexboxes (no external heavy chart libraries required).</li>
+    </ul>
+  </li>
+  <li><strong>Autoseeding default Admin credentials</strong>:
+    <ul>
+      <li>The server automatically verifies and seeds a default administrative profile (<code>admin</code> / <code>admin123</code>) on its first launch, removing setup complexity.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr>
+
+<h2>📂 Code Layout</h2>
+<p>The project files are structured as follows:</p>
+<ul>
+  <li><strong>Backend Entry Point</strong>: <code>server.js</code> — Inits Express, cookie-parsers, static routes, and auto-seeding.</li>
+  <li><strong>Database Setup</strong>: <code>config/db.js</code> — Establishes MongoDB or local JSON storage.</li>
+  <li><strong>Security & Models</strong>:
+    <ul>
+      <li><code>models/Donor.js</code> — Donor data CRUD schema.</li>
+      <li><code>models/Admin.js</code> — Admin data schema.</li>
+      <li><code>models/BloodRequest.js</code> — Patient request schema.</li>
+      <li><code>middleware/auth.js</code> — JWT protection middleware.</li>
+    </ul>
+  </li>
+  <li><strong>Backend API Routes</strong>:
+    <ul>
+      <li><code>routes/auth.js</code> — User/Admin login, registration, logout, and token checks.</li>
+      <li><code>routes/donor.js</code> — Profiles, availability status toggling, matching requests.</li>
+      <li><code>routes/request.js</code> — Creating blood requests and executing searches.</li>
+      <li><code>routes/admin.js</code> — System stats compilation, approving pending accounts, modifying entries, and report generations.</li>
+      <li><code>routes/payment.js</code> — Razorpay order manager.</li>
+    </ul>
+  </li>
+  <li><strong>Frontend Assets</strong>:
+    <ul>
+      <li><code>public/css/style.css</code> — Premium visual identity.</li>
+      <li><code>public/js/main.js</code> — Dynamic navbar, footer injection, and notifications.</li>
+      <li><code>public/js/auth.js</code> — Handles registration/login forms.</li>
+      <li><code>public/js/donor.js</code> — Dynamic donor portal updates.</li>
+      <li><code>public/js/admin.js</code> — Admin management controllers.</li>
+      <li><code>public/js/search.js</code> — Donor search grid and contact cards.</li>
+      <li><code>public/js/request.js</code> — Patient request postings.</li>
+    </ul>
+  </li>
+  <li><strong>HTML Templates</strong>:
+    <ul>
+      <li><code>public/index.html</code> — Home Page</li>
+      <li><code>public/about.html</code> — About Us</li>
+      <li><code>public/register.html</code> — Donor Registration</li>
+      <li><code>public/login.html</code> — Donor Login</li>
+      <li><code>public/search.html</code> — Search Donor</li>
+      <li><code>public/request.html</code> — Blood Request Form</li>
+      <li><code>public/dashboard.html</code> — Donor Dashboard</li>
+      <li><code>public/admin-login.html</code> — Admin Login</li>
+      <li><code>public/admin-dashboard.html</code> — Admin Dashboard</li>
+      <li><code>public/contact.html</code> — Contact Us</li>
+    </ul>
+  </li>
+</ul>
+
+<hr>
+
+<h2>🛠️ Recent Edits and Enhancements</h2>
+<ol>
+  <li><strong>International Country Codes</strong>:
+    <ul>
+      <li>Added a country code dropdown select input (with 58 major countries including <code>+91</code>, <code>+1</code>, <code>+66</code>, etc.) to both the <strong>Donor Registration</strong> page and the <strong>Blood Request</strong> page.</li>
+      <li>The selected country code and phone number are combined before calling backend validation, OTP transmission, database operations, or request submissions.</li>
+    </ul>
+  </li>
+  <li><strong>90-Second OTP Timers</strong>:
+    <ul>
+      <li>Implemented a 90-second (1.5 minute) countdown timer for OTP verification screens (Email and Mobile on Donor Registration, and Phone on Blood Requests).</li>
+      <li>Once an OTP code is generated, a "Resend code in X s" timer appears, and the resend option is hidden.</li>
+      <li>When the countdown reaches zero, the timer text is hidden and the "Resend OTP" button is enabled.</li>
+    </ul>
+  </li>
+  <li><strong>Enhanced Security Alerts</strong>:
+    <ul>
+      <li>Removed the generated OTP code from the frontend alerts. Users must retrieve codes from their physical mobile device / email or check the terminal logs on the backend console.</li>
+    </ul>
+  </li>
+  <li><strong>Bengaluru Hospital Search Dropdown & Layout Expansion</strong>:
+    <ul>
+      <li>Expanded the layout width of the <strong>Blood Request Form</strong> to a maximum of <code>780px</code> to make the form spacious and premium.</li>
+      <li>Restructured the input columns: moved the Contact Phone Number group down to its own dedicated full-width row, giving it ample space.</li>
+      <li>Populated the Hospital Name dropdown select with an extensive collection of 58 major Bengaluru hospitals along with their specific locations/neighborhoods.</li>
+      <li>Kept the "Other (Hospital not listed)" fallback option with a dynamic custom inline text input field toggle.</li>
+    </ul>
+  </li>
+  <li><strong>Precise Donor Geolocation</strong>:
+    <ul>
+      <li>Updated the OpenStreetMap Nominatim reverse geocoding parser specifically for the <strong>Donor Registration</strong> page.</li>
+      <li>Prioritizes extracting specific neighborhoods, suburbs, and districts (e.g. "Whitefield") and combines it with the parent city (e.g. "Bengaluru") to capture precise locations rather than just the generic city name. Example output: <code>Whitefield, Bengaluru</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Patient Contact Details Dialog</strong>:
+    <ul>
+      <li>Modified the "Matching Requests" table on the <strong>Donor Dashboard</strong> to trigger a modal overlay when clicking <code>"Contact Patient"</code>.</li>
+      <li>The modal cleanly lays out all requester parameters (Patient name, Blood group, specific Hospital name, and Suburb/Location) with a direct dial button.</li>
+    </ul>
+  </li>
+  <li><strong>Dynamic Verification Display</strong>:
+    <ul>
+      <li>Replaced a hardcoded overview verification label (<code>"Approved by Administrator"</code>) with a dynamic tag linked to the backend donor validation state. It now properly renders <code>Pending Administrative Approval</code>, <code>Approved by Administrator</code> or <code>Rejected by Administrator</code> with correct color status indicators.</li>
+    </ul>
+  </li>
+  <li><strong>Contact Page Mail Client Redirect</strong>:
+    <ul>
+      <li>Cleaned up raw placeholder text on the <strong>Contact Us</strong> page with realistic information: added a real head office address (Bellandur, Bengaluru), a clickable helpline support link (+91 88846 57151), and a clickable support email link.</li>
+      <li>Replaced the local alert message form submission handler with a dynamic <strong><code>mailto:</code> redirect</strong> to compose and send the email with prefilled details.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr>
+
+<h2>🚀 How to Run the System</h2>
+<h3>Prerequisites</h3>
+<ul>
+  <li><strong>Node.js</strong> installed on your device.</li>
+  <li><em>(Optional)</em> <strong>MongoDB Community Server</strong> running locally on port <code>27017</code>. (If not present, the system will fall back to JSON files).</li>
+</ul>
+
+<h3>Setup Steps</h3>
+<ol>
+  <li>Navigate into the folder:
+    <pre><code>cd blood-donor-finder</code></pre>
+  </li>
+  <li>Install npm dependencies:
+    <pre><code>npm install</code></pre>
+  </li>
+  <li>Set up your environment variables by creating a <code>.env</code> file in the root directory (refer to the <code>README.md</code> file for templates).</li>
+  <li>Start the web server:
+    <pre><code>npm start</code></pre>
+  </li>
+  <li>Open your web browser and navigate to:
+    <pre><code>http://localhost:5000</code></pre>
+  </li>
+</ol>
+
+<hr>
+
+<h2>📦 Git Repository Deployment</h2>
+<p>The entire project has been successfully initialized under Git version control and pushed to your remote repository:</p>
+<ul>
+  <li><strong>Repository URL</strong>: <a href="https://github.com/themiccc/blooddonar_prj.git" target="_blank">blooddonar_prj</a></li>
+  <li><strong>Branch</strong>: <code>main</code></li>
+  <li><strong>Exclusions</strong>: Node modules (<code>node_modules/</code>), local environment credentials (<code>.env</code>), and local JSON files (<code>data/*.json</code>) are properly excluded from version control via <code>.gitignore</code> to ensure security.</li>
+  <li><strong>Environment Template</strong>: A <code>.env.example</code> template has been added to guide setup on any other development or production device.</li>
+</ul>
+
+<hr>
+
+<h2>💾 Seeded Database Configuration and Datasets</h2>
+<p>To ensure the system works with realistic production-scale volumes of records immediately on launch, a database seeding script (<code>seed.js</code>) has been executed. This populates the database with a high-fidelity, high-volume mock dataset:</p>
+
+<ul>
+  <li><strong>Total Dataset Size</strong>: <strong>1,050+ records</strong> (630 donors, 420 requests).</li>
+  <li><strong>Location Distribution</strong>:
+    <ul>
+      <li><strong>60% (Bengaluru)</strong>: Concentrated heavily in major neighborhoods such as Whitefield, Koramangala, Indiranagar, HSR Layout, JP Nagar, Jayanagar, Marathahalli, Hebbal, Yelahanka, and Electronic City.</li>
+      <li><strong>40% (All-India Metros)</strong>: Distributed across major metro regions including Mumbai, Delhi, Chennai, Hyderabad, Pune, and Kolkata.</li>
+    </ul>
+  </li>
+  <li><strong>Categories Populated</strong>:
+    <ol>
+      <li><strong>Approved Donors (210 entries)</strong>: Validated profiles that are fully searchable by blood group and area/city. Approximately 85% of them are toggled as <code>Available</code>.</li>
+      <li><strong>Pending Donors (210 entries)</strong>: Newly registered profiles showing as <code>Pending</code> approval in the Admin Console dashboard, ready for approval testing.</li>
+      <li><strong>Rejected Donors (210 entries)</strong>: Registrations that have been flagged as <code>Rejected</code> by the administrator console.</li>
+      <li><strong>Blood Requests (420 entries)</strong>:
+        <ul>
+          <li><em>Pending Requests (210 entries)</em>: Active public blood requests visible on the home page feed and matching donor dashboards, ranging from Normal to Urgent and Emergency levels.</li>
+          <li><em>Fulfilled/Cancelled Requests (210 entries)</em>: Historical logs of completed requests.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li><strong>Performance Optimization</strong>: The seeding script uses a pre-hashed password buffer for all mock users on startup, executing the full seed generation in under <strong>1 second</strong> (avoiding standard bcrypt bottlenecks for 600+ users).</li>
+</ul>
+
+<hr>
+
+<h2>🔍 Database Verification and Querying</h2>
+<p>To check and verify records stored in the database, you can use either the built-in command-line utility or the standard MongoDB Shell (<code>mongosh</code>).</p>
+
+<h3>Method A: Built-in Command-Line Utility (Recommended)</h3>
+<p>You can run database queries directly in your standard project terminal (PowerShell or Bash) without entering the <code>mongosh</code> environment:</p>
+<ul>
+  <li><strong>View Database Summary</strong>:
+    <pre><code>node query.js</code></pre>
+  </li>
+  <li><strong>List Approved, Available Donors</strong>:
+    <pre><code>node query.js donors</code></pre>
+  </li>
+  <li><strong>List Active Blood Requests</strong>:
+    <pre><code>node query.js requests</code></pre>
+  </li>
+</ul>
+
+<h3>Method B: MongoDB Shell (<code>mongosh</code>)</h3>
+<p>If you want to use the native MongoDB Shell, follow these steps step-by-step in your terminal:</p>
+<ol>
+  <li>Start the shell:
+    <pre><code>mongosh</code></pre>
+  </li>
+  <li>Switch to the Lifeline database:
+    <pre><code>use blood_donor_db</code></pre>
+  </li>
+  <li>Run any of the following queries:
+    <h4>1. Donor Management Queries</h4>
+    <ul>
+      <li>Find all approved, active donors:
+        <pre><code>db.donors.find({ status: "Approved", isAvailable: true })</code></pre>
+      </li>
+      <li>Filter available O+ donors in Bengaluru:
+        <pre><code>db.donors.find({ status: "Approved", isAvailable: true, bloodGroup: "O+", city: /bengaluru/i })</code></pre>
+      </li>
+      <li>Find pending donor applications:
+        <pre><code>db.donors.find({ status: "Pending" })</code></pre>
+      </li>
+      <li>Aggregate/Count approved donors by blood group:
+        <pre><code>db.donors.aggregate([
+  { $match: { status: "Approved" } },
+  { $group: { _id: "$bloodGroup", count: { $sum: 1 } } },
+  { $sort: { count: -1 } }
+])</code></pre>
+      </li>
+      <li>Find donors registered in a specific neighborhood (e.g., Whitefield):
+        <pre><code>db.donors.find({ status: "Approved", city: /whitefield/i })</code></pre>
+      </li>
+    </ul>
+    
+    <h4>2. Blood Request Queries</h4>
+    <ul>
+      <li>Find all unresolved Emergency requests:
+        <pre><code>db.bloodrequests.find({ status: "Pending", urgency: "Emergency" })</code></pre>
+      </li>
+      <li>Retrieve requests sorted by date (recent first):
+        <pre><code>db.bloodrequests.find().sort({ requestDate: -1 })</code></pre>
+      </li>
+      <li>Count the total number of fulfilled blood requests:
+        <pre><code>db.bloodrequests.countDocuments({ status: "Fulfilled" })</code></pre>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr>
+
+<h2>🧪 Comprehensive Edge Case Testing Plan</h2>
+<p>To thoroughly verify all parts of the application, execute tests against the following edge cases:</p>
+
+<h3>Edge Case 1: Database Offline Fallback (Auto-JSON Mode)</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Ensure the system functions 100% correctly even if MongoDB is shut down.</p>
+</div>
+<ol>
+  <li>Stop your local MongoDB service.</li>
+  <li>Start the Express server (<code>npm start</code>). Check terminal logs.</li>
+  <li>Verify that the terminal displays: <code>[Database] MongoDB connection failed</code> and <code>Falling back to Local JSON database</code>.</li>
+  <li>Perform donor registration, admin logins, and submit a blood request.</li>
+  <li>Open the <code>data/</code> directory and verify that <code>donors.json</code> and <code>requests.json</code> are written to with the new entries.</li>
+</ol>
+
+<h3>Edge Case 2: OTP Verification & 90-Second Expiry Countdown</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Confirm that the OTP verification UI and backend validation handles timers, resend states, and incorrect entries.</p>
+</div>
+<ol>
+  <li>Open the <strong>Become a Donor</strong> page. Fill out details and click <strong>Verify</strong> on Mobile or Email.</li>
+  <li>Confirm that the verification input modal appears, and a 90-second countdown timer starts ("Resend code in 90s").</li>
+  <li>Confirm that the "Resend OTP" button is hidden during active countdowns.</li>
+  <li>Wait for 90 seconds. Verify that the countdown hides and the "Resend OTP" button becomes active.</li>
+  <li>Input an incorrect 4-digit code and verify that the system rejects the input.</li>
+  <li>Retrieve the correct code from the server console logs. Enter it, and verify that verification status changes to checked (verified).</li>
+</ol>
+
+<h3>Edge Case 3: Phone Input and Country Code Validation</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Verify that country codes are parsed correctly and validation stops invalid numbers.</p>
+</div>
+<ol>
+  <li>Go to the donor registration page. Select country code <code>+91</code> (India).</li>
+  <li>Input a short 5-digit number and click <strong>Verify</strong>. Verify that the validation rejects it.</li>
+  <li>Input a standard 10-digit number. Confirm that the verification succeeds.</li>
+  <li>Check the server console log: confirm that the generated OTP is logged with the country prefix appended (e.g. <code>+918884657151</code>).</li>
+  <li>Select country code <code>+1</code> (USA). Enter a 10-digit number. Verify it compiles and validates.</li>
+</ol>
+
+<h3>Edge Case 4: Geolocation Suburb Matching & OSM Geocoding Fallbacks</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Ensure precise location coordinates map to neighborhood names.</p>
+</div>
+<ol>
+  <li>Go to <strong>Become a Donor</strong> page. Check the "City/Location" input.</li>
+  <li>Click the location search icon or allow browser location prompts.</li>
+  <li>If testing from a specific suburb (e.g., Whitefield, Bengaluru), verify that the auto-populated location input displays the detailed neighborhood and parent city (e.g., <code>Whitefield, Bengaluru</code>) instead of just <code>Bengaluru</code>.</li>
+  <li>Reject browser location permissions and verify that the input falls back gracefully to standard manual text input.</li>
+</ol>
+
+<h3>Edge Case 5: Bengaluru Hospital Dropdown & "Other" Option Toggle</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Verify that the curated hospital dropdown functions correctly and the manual input fallback works without layout breaking.</p>
+</div>
+<ol>
+  <li>Go to the <strong>Blood Request Form</strong> page.</li>
+  <li>Click the <strong>Hospital Name</strong> dropdown. Verify that a scrollable list of 58 major Bengaluru hospitals is present with locations.</li>
+  <li>Select an option (e.g., <code>Apollo Hospital, Bannerghatta Road</code>). Verify that the manual text input remains hidden.</li>
+  <li>Select <code>Other (Hospital not listed)</code>. Verify that a custom text field immediately appears inline.</li>
+  <li>Enter a custom name (e.g., <code>City Health Clinic</code>). Submit the form and verify that the database registers <code>City Health Clinic</code> under the hospital field.</li>
+</ol>
+
+<h3>Edge Case 6: Guest Profile Data Masking (Privacy Controls)</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Confirm that sensitive donor contact info is protected from non-logged-in users.</p>
+</div>
+<ol>
+  <li>Open a new Incognito browser window (not logged in).</li>
+  <li>Go to the <strong>Search Donors</strong> page. Search for a matching blood group.</li>
+  <li>When the matching donor cards appear, look at the contact fields.</li>
+  <li>Verify that the email and phone number are masked (e.g., <code>mi*****@gmail.com</code> and <code>+91 ***** ***89</code>).</li>
+  <li>Click <strong>Contact Donor</strong>. Confirm that a prompt redirects the user to log in or register before displaying unmasked details.</li>
+</ol>
+
+<h3>Edge Case 7: Admin Panel Session Security & Role Middleware</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Ensure unauthorized users cannot access admin dashboards by pasting URLs.</p>
+</div>
+<ol>
+  <li>Open a browser window where you are not logged in as an administrator.</li>
+  <li>Navigate directly to <code>http://localhost:5000/admin-dashboard.html</code>.</li>
+  <li>Verify that the authorization middleware intercepts the request and redirects you back to the home page or <code>admin-login.html</code>.</li>
+  <li>Try logging in with incorrect credentials. Verify that validation errors are displayed.</li>
+  <li>Log in with the default admin credentials (<code>admin</code> / <code>admin123</code>). Confirm that the admin dashboard loads and stats charts populate.</li>
+</ol>
+
+<h3>Edge Case 8: Native Mail Client Redirect Form Submissions</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Verify that Contact Us form submissions route to the native mail client.</p>
+</div>
+<ol>
+  <li>Go to the <strong>Contact Us</strong> page.</li>
+  <li>Fill out the "Send us a Message" form with your name, email, subject, and message.</li>
+  <li>Click <strong>Send Message</strong>.</li>
+  <li>Verify that the browser initiates a redirection link of format <code>mailto:support@lifeline.org?subject=...&body=...</code> and opens your device's default mailing client (Outlook, Gmail, Apple Mail, etc.) with the fields pre-filled.</li>
+</ol>
+
+<h3>Edge Case 9: Razorpay Payment Gateway Sandbox Transactions</h3>
+<div class="highlight-block">
+  <p><strong>Objective</strong>: Verify payment gateway order generation.</p>
+</div>
+<ol>
+  <li>Navigate to the **Contact Us** page.</li>
+  <li>In the "Support Our Mission" card, input a donation amount (e.g., <code>500</code>) and click <strong>Donate Now</strong>.</li>
+  <li>Verify that the Razorpay checkout overlay appears.</li>
+  <li>Enter standard Razorpay test details (e.g., select UPI/Card test success flow).</li>
+  <li>Click pay and confirm that the payment processes, closes, and shows a custom success alert.</li>
+</ol>
+
+</body>
+</html>
